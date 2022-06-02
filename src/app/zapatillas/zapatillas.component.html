@@ -1,0 +1,58 @@
+<h2>{{titulo}}</h2>
+
+<p>Agregar Marca</p>
+<p>
+    <input type="text" [(ngModel)]="mi_marca" (blur)="onBlur()" (keyup.enter)="mostrarPalabra()">
+    <button (click)="addMarca()">Agregar Marca</button>
+</p>
+
+<p>{{ mi_marca }}</p>
+
+<br>
+<hr>
+
+<p>
+    Compra las zapatillas de las mejores marcas</p>
+<ul>
+    <li *ngFor="let item of marcas; let i=index">
+        {{ i + ' ' + item }}
+        <button (click)="borrarMarca(i)">Borrar</button>
+    </li>
+</ul>
+
+<br>
+<hr>
+
+<p>Las deportivas disponibles son:</p>
+<ul>
+    <li *ngFor="let item of zapatillas">
+        {{item.nombre}} - 
+        <strong [class.altoPrecio]="item.precio >= 80"
+                [ngClass]="{
+                    'fondoRojo': item.precio == 50, 
+                    'subrayado': item.marca == 'Nike'
+                    }">
+            {{item.precio}}$
+        </strong>
+        
+        <span *ngIf="item.precio < 80" 
+              [style.background]="item.precio < 80 ? 'green' : 'transparent'"
+              [style.color]="item.precio < 80 ? 'white' : 'black'">
+              ¡EN OFERTA!
+        </span>
+    </li>
+</ul>
+
+<p>El color de la mayoría de nuestras zapatillas es:</p>
+<input type="text" [(ngModel)]="color">
+<ul [ngSwitch]="color">
+    <li *ngSwitchCase="'yellow'">
+        El color predominante es el <span style="background: yellow;">Amarillo</span>
+    </li>
+    <li *ngSwitchCase="'red'">
+        El color predominante es el <span [ngStyle]="{'background': color}">Rojo</span>
+    </li>
+    <li *ngSwitchCase="'blue'">
+        El color predominante es el <span [ngStyle]="{'background': color}">Azul</span>
+    </li>
+</ul>
