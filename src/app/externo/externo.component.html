@@ -1,1 +1,42 @@
-<p>externo works!</p>
+<h2>Crear usuario</h2>
+<form #newUser="ngForm" (ngSubmit)="onSubmit(newUser)">
+    <p>
+        <label for="name">Nombre</label>
+        <input type="text" name="name" #name="ngModel" [(ngModel)]="new_user.name" required>
+        <span *ngIf="name.invalid && name.touched">El nombre no es válido</span>
+    </p>
+    <p>
+        <label for="job">Trabajo</label>
+        <input type="text" name="job" #job="ngModel" [(ngModel)]="new_user.job" required>
+        <span *ngIf="job.invalid && job.touched">El job no es válido</span>
+    </p>
+    <input type="submit" value="Guardar Usuario" [disabled]="newUser.invalid">
+</form>
+
+<div *ngIf="usuario_guardado">
+    <h3>{{ usuario_guardado.name }}</h3>
+    <h3>{{ usuario_guardado.job }}</h3>
+</div>
+
+<hr>
+
+<div>
+    {{ fecha | date:'dd/MM/yy' }}
+    <br>
+    {{ fecha | date:'fullDate' | uppercase }}
+    <br>
+    {{ 4 | calculadora: 2}}
+</div>
+
+<hr>
+<div *ngIf="user">
+    <input type="text" [(ngModel)]="userId" (keyup.enter)="cargaUsuario()">
+    <br>
+    <img src="{{ user.avatar }}">
+    <br>
+    {{ user.first_name + ' ' + user.last_name }}
+</div>
+
+<div *ngIf="!user">
+    Cargando ...
+</div>
